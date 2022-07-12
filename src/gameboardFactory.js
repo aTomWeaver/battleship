@@ -5,7 +5,9 @@ function gameboardFactory() {
         return arr;
     }
     let board = _generateBlankBoard();
-    let hit
+    let hit = (loc) => {
+        board[loc].isHit = true;
+    }
     return {board, hit}
 }
 
