@@ -13,18 +13,14 @@ function getShipLength(type) {
   }
 }
 
-function shipFactory(type, position) {
+function shipFactory(type) {
   const length = getShipLength(type); // currently unused
   let hits = [];
-  const isSunk = () => position.every((space) => hits.includes(space));
-  const tryHit = (num) => {
-    if (position.includes(num) && !hits.includes(num)) {
-      hits.push(num);
-      return true;
-    }
-    return false;
-  };
-  return { isSunk, tryHit, hits, length };
+  const isSunk = () => hits.length === length;
+  const hit = () => hits.push(hits.length);
+  return { isSunk, hit, hits, length };
 }
 
 export { shipFactory };
+
+// const isSunk = () => position.every((space) => hits.includes(space));
