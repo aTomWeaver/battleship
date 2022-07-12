@@ -1,3 +1,5 @@
+import {shipFactory} from './shipFactory.js'
+
 function gameboardFactory() {
     let _generateBlankBoard = () => {
         let arr = [];
@@ -5,11 +7,13 @@ function gameboardFactory() {
         return arr;
     }
     let board = _generateBlankBoard();
-    let allShipsSunk = false;
+    const placeShip = (type, direction, origin) => {
+        const newShip = shipFactory(type)
+    }
     let receiveHit = (loc) => {
         board[loc].isHit = true;
     }
-    return {board, receiveHit, allShipsSunk}
+    return {board, receiveHit, placeShip}
 }
 
 export { gameboardFactory };

@@ -13,8 +13,12 @@ test('spaces can receive a hit', () => {
     expect(newBoard.board[1].isHit).toBe(true);
 })
 
-test('gameboard can place a ship', () => {
-    expect(gameboard.place(3, 'vertical', ))
+test.only('gameboard can place a ship', () => {
+    const newBoard = gameboardFactory();
+    newBoard.placeShip('cruiser', 'vertical', 24);
+    expect(newBoard.board[24].ship).toBe('cruiser');
+    expect(newBoard.board[34].ship).toBe('cruiser');
+    expect(newBoard.board[44].ship).toBe('cruiser');
 })
 
 test('cannot place ship with inadequate room', () => {
