@@ -14,11 +14,14 @@ test('spaces can receive a hit', () => {
 })
 
 test.only('gameboard can place a ship', () => {
-    const newBoard = gameboardFactory();
-    newBoard.placeShip('cruiser', 'vertical', 24);
-    expect(newBoard.board[24].ship).toBe('cruiser');
-    expect(newBoard.board[34].ship).toBe('cruiser');
-    expect(newBoard.board[44].ship).toBe('cruiser');
+    const firstBoard = gameboardFactory();
+    firstBoard.placeShip('cruiser', 'vertical', 24);
+    expect(firstBoard.board[24].ship).toBe('cruiser');
+    expect(firstBoard.board[34].ship).toBe('cruiser');
+    expect(firstBoard.board[44].ship).toBe('cruiser');
+    firstBoard.placeShip('destroyer', 'horizontal', 7);
+    expect(firstBoard.board[7].ship).toBe('destroyer');
+    expect(firstBoard.board[8].ship).toBe('destroyer');
 })
 
 test('cannot place ship with inadequate room', () => {
@@ -33,6 +36,6 @@ test('hits pass the hit to the corresponding ship', () => {
 
 });
 
-test('reports whether or not all ships have sunk', () => {
+// test('reports whether or not all ships have sunk', () => {
 
-});
+// });
