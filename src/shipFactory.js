@@ -17,7 +17,13 @@ function shipFactory(type) {
   const length = getShipLength(type); // currently unused
   let hits = [];
   const isSunk = () => hits.length === length;
-  const hit = () => hits.push(hits.length);
+  const hit = () => {
+    if (!isSunk()) {
+      hits.push(hits.length);
+      console.log(hits);
+      if (isSunk()) console.log(`You sank my ${type}!`); 
+    }
+  }
   return { isSunk, hit, hits, length };
 }
 

@@ -1,4 +1,5 @@
 import {gameboardFactory} from '../gameboardFactory.js';
+import {shipFactory} from '../shipFactory.js'
 
 test('generates a blank gameboard', () => {
     const newBoard = gameboardFactory();
@@ -7,13 +8,7 @@ test('generates a blank gameboard', () => {
     expect(newBoard.board).toStrictEqual(testArr);
 })
 
-test('spaces can receive a hit', () => {
-    const newBoard = gameboardFactory();
-    newBoard.receiveHit(1);
-    expect(newBoard.board[1].isHit).toBe(true);
-})
-
-test.only('gameboard can place a ship', () => {
+test('gameboard can place a ship', () => {
     const firstBoard = gameboardFactory();
     firstBoard.placeShip('cruiser', 'vertical', 24);
     expect(firstBoard.board[24].ship).toBe('cruiser');
@@ -22,6 +17,18 @@ test.only('gameboard can place a ship', () => {
     firstBoard.placeShip('destroyer', 'horizontal', 7);
     expect(firstBoard.board[7].ship).toBe('destroyer');
     expect(firstBoard.board[8].ship).toBe('destroyer');
+})
+
+test('spaces can receive a hit once and pass it to the ship', () => {
+    const playerOne = gameboardFactory();
+    playerOne.placeShip('destroyer', 'horizontal', 1);
+    playerOne.receiveHit(1);
+    playerOne.receiveHit(1);
+    // a hit in the same location is not passed to ship hit() function 
+    expect(playerOne.ships['destroyer'].isSunk()).not.toBe(true);
+    playerOne.receiveHit(2);
+    expect(playerOne.board[1].isHit).toBe(true);
+    expect(playerOne.ships['destroyer'].isSunk()).toBe(true);
 })
 
 test('cannot place ship with inadequate room', () => {
@@ -36,6 +43,6 @@ test('hits pass the hit to the corresponding ship', () => {
 
 });
 
-// test('reports whether or not all ships have sunk', () => {
+test('reports whether or not all ships have sunk', () => {
 
-// });
+});
