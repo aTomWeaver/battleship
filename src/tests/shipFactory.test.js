@@ -24,7 +24,7 @@ test('ship objects updates hits with successful hit call', () => {
     expect(ship2.hits).toStrictEqual([0]);
 });
 
-test('ship sinks when all positions are hit', () => {
+test.only('ship sinks when all positions are hit', () => {
     const ship = shipFactory('submarine');
     ship.hit();
     ship.hit();
