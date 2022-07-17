@@ -20,8 +20,7 @@ function shipFactory(type) {
   const hit = () => {
     if (!isSunk()) {
       hits.push(hits.length);
-      console.log(hits);
-      if (isSunk()) console.log(`You sank my ${type}!`); 
+      if (isSunk()) console.log(`You sank the ${type}!`); 
     }
   }
   return { isSunk, hit, hits, length };

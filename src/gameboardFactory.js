@@ -13,16 +13,16 @@ function gameboardFactory() {
 
   const _placementIsViable = (length, direction, origin) => {
     if (direction === "horizontal") {
-      if (origin < 10 && origin + (length -1) < 10) {
+      if (origin < 10 && origin + (length - 1) < 10) {
         return true;
       } else if (origin > 10) {
         let start = origin.toString().split("");
-        let end = (length - 1) + origin;
-        end = end.toString().split("")
+        let end = length - 1 + origin;
+        end = end.toString().split("");
         if (start[0] === end[0]) return true;
       }
     } else if (direction === "vertical") {
-      if (origin + (length - 1) * 10 < 100) return true;
+      if (((length - 1) * 10 + origin) < 100) return true;
     }
     return false;
   };
@@ -30,13 +30,15 @@ function gameboardFactory() {
   const placeShip = (type, direction, origin) => {
     const newShip = shipFactory(type);
     ships[type] = newShip; // appends new ship to ships object
-    if (direction === "vertical" && origin + newShip.length) {
-      for (let i = 0; i <= newShip.length * 10; i += 10) {
-        board[origin + i].ship = type;
-      }
-    } else {
-      for (let i = 0; i < newShip.length; i++) {
-        board[origin + i].ship = type;
+    if (_placementIsViable(newShip.length, direction, origin)) {
+      if (direction === "vertical") {
+        for (let i = 0; i < (newShip.length * 10); i += 10) {
+          board[origin + i].ship = type;
+        }
+      } else {
+        for (let i = 0; i < newShip.length; i++) {
+          board[origin + i].ship = type;
+        }
       }
     }
   };
