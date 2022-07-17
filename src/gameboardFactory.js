@@ -7,7 +7,7 @@ function gameboardFactory() {
     return arr;
   };
 
-  let board = _generateBlankBoard();
+  let spaces = _generateBlankBoard();
 
   let ships = {};
 
@@ -51,8 +51,8 @@ function gameboardFactory() {
   };
 
   const _placementDoesNotIntersect = (coords) => {
-    // checks the board's "ship" property for each coordinate
-    return !coords.some((pos) => board[pos].ship);
+    // checks the spaces's "ship" property for each coordinate
+    return !coords.some((pos) => spaces[pos].ship);
   };
 
   const placeShip = (type, direction, origin) => {
@@ -63,13 +63,13 @@ function gameboardFactory() {
       _placementDoesNotIntersect(coords) &&
       !ships[type] // has not already placed this kind of ship
     ) {
-      coords.forEach((pos) => (board[pos].ship = type));
+      coords.forEach((pos) => (spaces[pos].ship = type));
       ships[type] = newShip;
     }
   };
 
   let receiveHit = (x) => {
-    let pos = board[x];
+    let pos = spaces[x];
     if (!pos.isHit && pos.ship) {
       pos.isHit = true;
       ships[pos.ship].hit();
@@ -81,7 +81,7 @@ function gameboardFactory() {
     }
   };
 
-  return { board, ships, sunkenShips, receiveHit, placeShip };
+  return { spaces, ships, sunkenShips, receiveHit, placeShip };
 }
 
 export { gameboardFactory };
