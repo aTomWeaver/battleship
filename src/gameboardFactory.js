@@ -20,17 +20,17 @@ function gameboardFactory() {
   };
 
   const _getShipCoords = (length, direction, origin) => {
-    let pos = [];
+    let coords = [];
     if (direction === "vertical") {
       for (let i = 0; i < length * 10; i += 10) {
-        pos.push(origin + i);
+        coords.push(origin + i);
       }
     } else if (direction === "horizontal") {
       for (let i = 0; i < length; i++) {
-        pos.push(origin + i);
+        coords.push(origin + i);
       }
     }
-    return pos;
+    return coords;
   };
 
   const _placementDoesNotOverhang = (coords, direction) => {
@@ -74,7 +74,6 @@ function gameboardFactory() {
       pos.isHit = true;
       ships[pos.ship].hit();
       if (ships[pos.ship].isSunk()) sunkenShips.push(pos.ship);
-      // check if ship has sunk; if true, push the ship to sunkenShips
       if (allSunken()) console.log("All ships have sunk!");
     } else {
       pos.isHit = true;
