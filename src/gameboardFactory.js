@@ -11,6 +11,14 @@ function gameboardFactory() {
 
   let ships = {};
 
+  let sunkenShips = [];
+
+  const allSunken = () => {
+    if (Object.keys(ships).length === sunkenShips.length) {
+        return true;
+    }
+  }
+
   const _getShipCoords = (length, direction, origin) => {
     let pos = [];
     if (direction === "vertical") {
@@ -49,13 +57,14 @@ function gameboardFactory() {
 
   const placeShip = (type, direction, origin) => {
     const newShip = shipFactory(type);
-    ships[type] = newShip;
     const coords = _getShipCoords(newShip.length, direction, origin);
     if (
       _placementDoesNotOverhang(coords, direction) &&
-      _placementDoesNotIntersect(coords)
+      _placementDoesNotIntersect(coords) &&
+      !ships[type] // has not already placed this kind of ship
     ) {
       coords.forEach((pos) => (board[pos].ship = type));
+      ships[type] = newShip;
     }
   };
 
@@ -64,12 +73,15 @@ function gameboardFactory() {
     if (!pos.isHit && pos.ship) {
       pos.isHit = true;
       ships[pos.ship].hit();
+      if (ships[pos.ship].isSunk()) sunkenShips.push(pos.ship);
+      // check if ship has sunk; if true, push the ship to sunkenShips
+      if (allSunken()) console.log('All ships have sunk!')
     } else {
       return;
     }
   };
 
-  return { board, ships, receiveHit, placeShip };
+  return { board, ships, sunkenShips, receiveHit, placeShip };
 }
 
 export { gameboardFactory };
