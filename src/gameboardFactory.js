@@ -77,7 +77,7 @@ function gameboardFactory() {
       // check if ship has sunk; if true, push the ship to sunkenShips
       if (allSunken()) console.log("All ships have sunk!");
     } else {
-      return;
+      pos.isHit = true;
     }
   };
 
