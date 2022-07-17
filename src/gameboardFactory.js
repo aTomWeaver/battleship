@@ -15,9 +15,9 @@ function gameboardFactory() {
 
   const allSunken = () => {
     if (Object.keys(ships).length === sunkenShips.length) {
-        return true;
+      return true;
     }
-  }
+  };
 
   const _getShipCoords = (length, direction, origin) => {
     let pos = [];
@@ -75,7 +75,7 @@ function gameboardFactory() {
       ships[pos.ship].hit();
       if (ships[pos.ship].isSunk()) sunkenShips.push(pos.ship);
       // check if ship has sunk; if true, push the ship to sunkenShips
-      if (allSunken()) console.log('All ships have sunk!')
+      if (allSunken()) console.log("All ships have sunk!");
     } else {
       return;
     }

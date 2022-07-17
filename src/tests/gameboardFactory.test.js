@@ -56,10 +56,12 @@ test.only("reports whether or not all ships have sunk", () => {
   newPlayer.placeShip("submarine", "vertical", 71);
   newPlayer.receiveHit(94);
   newPlayer.receiveHit(95);
-  console.log(newPlayer.board)
+  console.log(newPlayer.board);
   expect(newPlayer.sunkenShips).toEqual(expect.arrayContaining(["destroyer"]));
-    newPlayer.receiveHit(71);
-    newPlayer.receiveHit(81);
-    newPlayer.receiveHit(91);
-  expect(newPlayer.sunkenShips).toEqual(expect.arrayContaining(["destroyer", "submarine"]));  
+  newPlayer.receiveHit(71);
+  newPlayer.receiveHit(81);
+  newPlayer.receiveHit(91);
+  expect(newPlayer.sunkenShips).toEqual(
+    expect.arrayContaining(["destroyer", "submarine"])
+  );
 });
