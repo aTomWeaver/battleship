@@ -6,9 +6,17 @@ test("Player can hit a space", () => {
   cpu.attack(playerOne, 4);
   expect(playerOne.board.spaces[4].isHit).toBe(true);
 
-  cpu.board.placeShip('destroyer', 'horizontal', 6);
+  cpu.board.placeShip("destroyer", "horizontal", 6);
   playerOne.attack(cpu, 6);
   playerOne.attack(cpu, 7);
   expect(cpu.board.spaces[6].isHit).toBe(true);
   expect(cpu.board.allSunken()).toBe(true);
+});
+
+test("Player object tracks misses", () => {
+  const playerOne = new Player("player 1");
+  const cpu = new Player("cpu");
+  playerOne.board.placeShip("carrier", "horizontal", 1);
+  cpu.attack(playerOne, 4);
+  cpu.attack(playerOne, 0);
 });
