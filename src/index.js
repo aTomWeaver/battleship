@@ -1,1 +1,3 @@
-console.log("logging from index");
+import { game } from "./gameLoop.js";
+
+game();
