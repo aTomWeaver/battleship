@@ -5,8 +5,8 @@ class Player {
     this.name = name;
     this.board = gameboardFactory();
   }
-  attack() {
-    return `Hello, I am ${this.name}`;
+  attack(player, pos) {
+    player.board.receiveHit(pos);
   }
 }
 

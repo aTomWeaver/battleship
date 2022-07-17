@@ -14,7 +14,7 @@ function gameboardFactory() {
   let sunkenShips = [];
 
   const allSunken = () => {
-    if (Object.keys(ships).length === sunkenShips.length) {
+    if (ships && Object.keys(ships).length === sunkenShips.length) {
       return true;
     }
   };
@@ -81,7 +81,7 @@ function gameboardFactory() {
     }
   };
 
-  return { spaces, ships, sunkenShips, receiveHit, placeShip };
+  return { spaces, ships, sunkenShips, allSunken, receiveHit, placeShip };
 }
 
 export { gameboardFactory };
