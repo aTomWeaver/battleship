@@ -27,5 +27,3 @@ function shipFactory(type) {
 }
 
 export { shipFactory };
-
-// const isSunk = () => position.every((space) => hits.includes(space));
