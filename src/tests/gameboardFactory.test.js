@@ -50,7 +50,7 @@ test("cannot place a ship on top of an existing ship", () => {
   expect(newPlayer.board[93].ship).toBe("destroyer");
 });
 
-test.only("reports whether or not all ships have sunk", () => {
+test("reports whether or not all ships have sunk", () => {
   const newPlayer = gameboardFactory();
   newPlayer.placeShip("destroyer", "horizontal", 94);
   newPlayer.placeShip("submarine", "vertical", 71);
