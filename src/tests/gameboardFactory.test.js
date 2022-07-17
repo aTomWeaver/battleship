@@ -42,13 +42,17 @@ test('cannot place ship with inadequate space', () => {
 })
 
 
-test.only('cannot place a ship on top of an existing ship', () => {
+test('cannot place a ship on top of an existing ship', () => {
     const newPlayer = gameboardFactory()
-    newPlayer.placeShip('carrier', 'horizontal', 4);
-    newPlayer.placeShip('destroyer', 'horizontal', 5);
-    console.log(newPlayer.board)
+    newPlayer.placeShip('carrier', 'horizontal', 94);
+    newPlayer.placeShip('destroyer', 'horizontal', 93);
+    expect(newPlayer.board[94].ship).toBe('carrier');
+    newPlayer.placeShip('destroyer', 'horizontal', 92);
+    expect(newPlayer.board[93].ship).toBe('destroyer');
 });
 
-test('reports whether or not all ships have sunk', () => {
-
+test.only('reports whether or not all ships have sunk', () => {
+    const newPlayer = gameboardFactory();
+    newPlayer.placeShip('carrier', 'horizontal', 94);
+    console.log(newPlayer.ships);
 });

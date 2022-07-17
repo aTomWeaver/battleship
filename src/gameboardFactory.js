@@ -7,39 +7,55 @@ function gameboardFactory() {
     return arr;
   };
 
-  let ships = {};
-
   let board = _generateBlankBoard();
 
-  const _placementIsViable = (length, direction, origin) => {
+  let ships = {};
+
+  const _getShipCoords = (length, direction, origin) => {
+    let pos = [];
+    if (direction === "vertical") {
+      for (let i = 0; i < length * 10; i += 10) {
+        pos.push(origin + i);
+      }
+    } else if (direction === "horizontal") {
+      for (let i = 0; i < length; i++) {
+        pos.push(origin + i);
+      }
+    }
+    return pos;
+  };
+
+  const _placementDoesNotOverhang = (coords, direction) => {
+    let first = coords[0];
+    let last = coords.slice(-1)[0];
     if (direction === "horizontal") {
-      if (origin < 10 && origin + (length - 1) < 10) {
+      if (first < 10 && last < 10) {
         return true;
-      } else if (origin > 10) {
-        let start = origin.toString().split("");
-        let end = length - 1 + origin;
-        end = end.toString().split("");
-        if (start[0] === end[0]) return true;
+      } else if (first > 10) {
+        let firstTensPlace = first.toString().split("")[0];
+        let lastTensPlace = last.toString().split("")[0];
+        if (firstTensPlace === lastTensPlace) return true;
       }
     } else if (direction === "vertical") {
-      if (((length - 1) * 10 + origin) < 100) return true;
+      if (last < 100) return true;
     }
     return false;
   };
 
+  const _placementDoesNotIntersect = (coords) => {
+    // checks the board's "ship" property for each coordinate
+    return !coords.some((pos) => board[pos].ship);
+  };
+
   const placeShip = (type, direction, origin) => {
     const newShip = shipFactory(type);
-    ships[type] = newShip; // appends new ship to ships object
-    if (_placementIsViable(newShip.length, direction, origin)) {
-      if (direction === "vertical") {
-        for (let i = 0; i < (newShip.length * 10); i += 10) {
-          board[origin + i].ship = type;
-        }
-      } else {
-        for (let i = 0; i < newShip.length; i++) {
-          board[origin + i].ship = type;
-        }
-      }
+    ships[type] = newShip;
+    const coords = _getShipCoords(newShip.length, direction, origin);
+    if (
+      _placementDoesNotOverhang(coords, direction) &&
+      _placementDoesNotIntersect(coords)
+    ) {
+      coords.forEach((pos) => (board[pos].ship = type));
     }
   };
 
@@ -53,7 +69,7 @@ function gameboardFactory() {
     }
   };
 
-  return { board, receiveHit, placeShip, ships };
+  return { board, ships, receiveHit, placeShip };
 }
 
 export { gameboardFactory };
