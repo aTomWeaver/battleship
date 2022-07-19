@@ -14,7 +14,10 @@ function gameboardFactory() {
   let sunkenShips = [];
 
   const allSunken = () => {
-    if (ships && Object.keys(ships).length === sunkenShips.length) {
+    if (
+      Object.keys(ships).length > 0 &&
+      Object.keys(ships).length === sunkenShips.length
+    ) {
       return true;
     }
   };
