@@ -7,9 +7,13 @@ class Player {
     this.misses = [];
   }
   attack(player, pos) {
-    player.board.receiveHit(pos);
-    if (!player.board.spaces[pos].ship && !this.misses.includes(pos)) {
-      this.misses.push(pos);
+    if (pos < 100) {
+      player.board.receiveHit(pos);
+      if (!player.board.spaces[pos].ship && !this.misses.includes(pos)) {
+        this.misses.push(pos);
+      }
+    } else {
+      console.log("invalid");
     }
   }
 }
