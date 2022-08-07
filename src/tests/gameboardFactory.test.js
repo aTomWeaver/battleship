@@ -37,7 +37,7 @@ test("cannot place ship with inadequate space", () => {
   newPlayer.placeShip("carrier", "horizontal", 7);
   expect(newPlayer.spaces[7].ship).not.toBe("carrier");
   // cannot place a ship that overhangs a column
-  newPlayer.placeShip("cruiser", "vertical", 89);
+  newPlayer.placeShip("cruiser", "l", 89);
   expect(newPlayer.spaces[99].ship).not.toBe("cruiser");
 });
 

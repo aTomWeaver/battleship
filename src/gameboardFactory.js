@@ -73,23 +73,31 @@ function gameboardFactory() {
     }
   };
 
-  let receiveHit = (x) => {
-    let pos = spaces[x];
-    if (!pos.isHit && pos.ship) {
-      pos.isHit = true;
-      ships[pos.ship].hit();
-      totalHits.push(x);
-      if (ships[pos.ship].isSunk()) sunkenShips.push(pos.ship);
+  let receiveHit = (space) => {
+    let target = spaces[space];
+    if (!target.isHit && target.ship) {
+      target.isHit = true;
+      ships[target.ship].hit();
+      totalHits.push(space);
+      if (ships[target.ship].isSunk()) sunkenShips.push(target.ship);
       if (allSunken()) console.log("All ships have sunk!");
-    } else if (!pos.isHit) {
-      pos.isHit = true;
-      totalHits.push(x);
+    } else if (!target.isHit) {
+      target.isHit = true;
+      totalHits.push(space);
     } else {
       return;
     }
   };
 
-  return { spaces, ships, totalHits, sunkenShips, allSunken, receiveHit, placeShip };
+  return {
+    spaces,
+    ships,
+    totalHits,
+    sunkenShips,
+    allSunken,
+    receiveHit,
+    placeShip,
+  };
 }
 
 export { gameboardFactory };

@@ -14,19 +14,18 @@ const _defaultSetup = (p1, cpu) => {
   cpu.board.placeShip("destroyer", "horizontal", 90); //   [90, 91]
 };
 
-const game = () => {
+function game() {
   // helpers
-
-  const checkWin = () => {
+  function checkWin() {
     if (playerOne.board.allSunken() || cpu.board.allSunken()) gameIsOver = true;
-  };
+  }
 
   const playerMakeMove = () => {
     let choice = parseInt(prompt("What space?"));
     if (!cpu.board.totalHits.includes(choice) && choice >= 0 && choice < 100) {
       console.log(choice);
       playerOne.attack(cpu, choice);
-      console.log(cpu.board.ships)
+      console.log(cpu.board.ships);
     } else {
       alert("invalid choice; try again");
       playerMakeMove();
@@ -58,19 +57,6 @@ const game = () => {
       checkWin();
     }
   }
-};
+}
 
 export { game };
-
-/*
-Game loop: 
-1 get player choice
-  a. if player has not chosen this before (should be checked on gameboard?)
-2 player attacks
-3 checkWin()
-3.5 update DOM
-4 cpu attacks
-  a. if cpu has not chosen.. etc.
-5 checkWin()
-5.5 update DOM
-*/

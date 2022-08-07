@@ -6,11 +6,11 @@ class Player {
     this.board = gameboardFactory();
     this.misses = [];
   }
-  attack(player, pos) {
-    if (pos < 100) {
-      player.board.receiveHit(pos);
-      if (!player.board.spaces[pos].ship && !this.misses.includes(pos)) {
-        this.misses.push(pos);
+  attack(opponent, targetSpace) {
+    if (targetSpace < 100) {
+      opponent.board.receiveHit(targetSpace);
+      if (!opponent.board.spaces[targetSpace].ship && !this.misses.includes(targetSpace)) {
+        this.misses.push(targetSpace);
       }
     } else {
       console.log("invalid");
