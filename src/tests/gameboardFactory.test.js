@@ -64,4 +64,5 @@ test("reports whether or not all ships have sunk", () => {
   expect(newPlayer.sunkenShips).toEqual(
     expect.arrayContaining(["destroyer", "submarine"])
   );
+  expect(newPlayer.allSunken()).toBe(true);
 });
