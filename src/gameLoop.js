@@ -16,8 +16,8 @@ const _defaultSetup = (p1, cpu) => {
 
 function game() {
   // helpers
-  function checkWin() {
-    if (playerOne.board.allSunken() || cpu.board.allSunken()) gameIsOver = true;
+  function checkWin(p1, p2) {
+    return p1.board.allSunken() || p2.board.allSunken();
   }
 
   const playerMakeMove = () => {
@@ -37,26 +37,28 @@ function game() {
     console.log(`cpu choice: ${choice}`);
   };
 
-  // setup
-  const playerOne = new Player("Player 1");
-  const cpu = new Player("CPU");
-  _defaultSetup(playerOne, cpu);
-  let gameIsOver = false;
-  let turn = playerOne.name;
+  function startGame() {
+    const playerOne = new Player("Player 1");
+    const cpu = new Player("CPU");
+    _defaultSetup(playerOne, cpu);
 
-  // loop
-  for (let i = 0; i < 200; i++) {
-    if (!gameIsOver) {
-      if (turn === playerOne.name) {
-        playerMakeMove();
-        turn = cpu.name;
-      } else if (turn === cpu.name) {
-        cpuMakeMove();
-        turn = playerOne.name;
-      }
-      checkWin();
+    let turns = {
+      current: "playerOne",
+      possible: 200,
+      switch: () =>
+        turns.current === "playerOne"
+          ? (turns.current = "cpu")
+          : (turns.current = "playerOne"),
+    };
+
+    for (let i = 0; i <= turns.possible; i++) {
+      turns.current === "playerOne" ? playerMakeMove() : cpuMakeMove();
+      updateDOM();
+      checkWin(playerOne, cpu);
+      turns.switch();
     }
   }
+  return { startGame };
 }
 
 export { game };
