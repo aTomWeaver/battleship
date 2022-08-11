@@ -8,7 +8,7 @@ class game {
     this.cpu = new Player("cpu");
   }
   // helpers
-  gameIsOver = () => {
+  #gameIsOver = () => {
     return (
       this.p1.board.allSunken() ||
       this.cpu.board.allSunken() ||
@@ -16,7 +16,7 @@ class game {
     );
   };
 
-  updateDOM = () => console.log("DOM updated");
+  #updateDOM = () => console.log("DOM updated");
 
   switchTurns = () => {
     this.currentTurn === "p1"
@@ -26,28 +26,29 @@ class game {
   };
 
   update = () => {
-    this.updateDOM();
-    console.log(this.gameIsOver());
+    this.#updateDOM();
+    console.log(this.#gameIsOver());
     this.switchTurns();
   };
 
-  playerMakeMove = (player, target = 1, opponent) => {
+  makeMove = (attacker, target, opponent) => {
     if (
       !opponent.board.totalHits.includes(target) &&
       target >= 0 &&
       target < 100
     ) {
-      player.attack(opponent, target);
-      console.log(opponent.board.ships);
-    } else {
-      alert("invalid choice; try again");
-      this.playerMakeMove(player, target, opponent);
+      attacker.attack(opponent, target);
     }
   };
 
-  cpuMakeMove = () => {
-    let choice = Math.floor(Math.random() * 100); // add a loop until new value is selected
-    console.log(`cpu choice: ${choice}`);
+  #getRandSpace = () => Math.floor(Math.random() * 100);
+
+  getCpuMove = () => {
+    let choice = this.#getRandSpace();
+    while (this.p1.board.totalHits.includes(choice)) {
+      choice = this.#getRandSpace();
+    }
+    return choice;
   };
 
   defaultSetup = () => {
