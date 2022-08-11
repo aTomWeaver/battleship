@@ -27,7 +27,7 @@ class game {
 
   update = () => {
     this.#updateDOM();
-    console.log(this.#gameIsOver());
+    console.log(`Game is over: ${this.#gameIsOver()}`);
     this.switchTurns();
   };
 
@@ -38,6 +38,10 @@ class game {
       target < 100
     ) {
       attacker.attack(opponent, target);
+      return true; 
+    } else {
+      console.log(`player: ${attacker.board.totalHits}\ncpu: ${opponent.board.totalHits}`)
+      return false;
     }
   };
 
