@@ -62,9 +62,9 @@ function gameboardFactory() {
     const newShip = shipFactory(type);
     const coords = _getShipCoords(newShip.length, direction, origin);
     if (
+      !ships[type] && // has not already placed this kind of ship
       _placementDoesNotOverhang(coords, direction) &&
-      _placementDoesNotIntersect(coords) &&
-      !ships[type] // has not already placed this kind of ship
+      _placementDoesNotIntersect(coords)
     ) {
       coords.forEach((pos) => (spaces[pos].ship = type));
       ships[type] = newShip;

@@ -1,65 +1,68 @@
 import { Player } from "./player.js";
 
-const _defaultSetup = (p1, cpu) => {
-  p1.board.placeShip("carrier", "horizontal", 0); //       [0, 1, 2, 3, 4]
-  p1.board.placeShip("battleship", "vertical", 14); //     [14, 24, 34, 44]
-  p1.board.placeShip("cruiser", "horizontal", 45); //      [45, 46, 47]
-  p1.board.placeShip("submarine", "vertical", 9); //       [9, 19, 29]
-  p1.board.placeShip("destroyer", "horizontal", 90); //    [90, 91, 92]
-
-  cpu.board.placeShip("carrier", "vertical", 0); //        [0, 10, 20, 30, 40]
-  cpu.board.placeShip("battleship", "vertical", 8); //     [8, 18, 28, 38]
-  cpu.board.placeShip("cruiser", "horizontal", 45); //     [45, 46, 47]
-  cpu.board.placeShip("submarine", "vertical", 9); //      [9, 19, 29]
-  cpu.board.placeShip("destroyer", "horizontal", 90); //   [90, 91]
-};
-
-function game() {
-  // helpers
-  function checkWin(p1, p2) {
-    return p1.board.allSunken() || p2.board.allSunken();
+class game {
+  constructor() {
+    this.currentTurn = "p1";
+    this.possibleTurns = 100;
+    this.p1 = new Player("p1");
+    this.cpu = new Player("cpu");
   }
+  // helpers
+  gameIsOver = () => {
+    return (
+      this.p1.board.allSunken() ||
+      this.cpu.board.allSunken() ||
+      this.possibleTurns < 1
+    );
+  };
 
-  const playerMakeMove = () => {
-    let choice = parseInt(prompt("What space?"));
-    if (!cpu.board.totalHits.includes(choice) && choice >= 0 && choice < 100) {
-      console.log(choice);
-      playerOne.attack(cpu, choice);
-      console.log(cpu.board.ships);
+  updateDOM = () => console.log("DOM updated");
+
+  switchTurns = () => {
+    this.currentTurn === "p1"
+      ? (this.currentTurn = "cpu")
+      : (this.currentTurn = "p1");
+    this.possibleTurns--;
+  };
+
+  update = () => {
+    this.updateDOM();
+    console.log(this.gameIsOver());
+    this.switchTurns();
+  };
+
+  playerMakeMove = (player, target = 1, opponent) => {
+    if (
+      !opponent.board.totalHits.includes(target) &&
+      target >= 0 &&
+      target < 100
+    ) {
+      player.attack(opponent, target);
+      console.log(opponent.board.ships);
     } else {
       alert("invalid choice; try again");
-      playerMakeMove();
+      this.playerMakeMove(player, target, opponent);
     }
   };
 
-  const cpuMakeMove = () => {
-    let choice = Math.floor(Math.random() * 100);
+  cpuMakeMove = () => {
+    let choice = Math.floor(Math.random() * 100); // add a loop until new value is selected
     console.log(`cpu choice: ${choice}`);
   };
 
-  function startGame() {
-    const playerOne = new Player("Player 1");
-    const cpu = new Player("CPU");
-    _defaultSetup(playerOne, cpu);
+  defaultSetup = () => {
+    this.p1.board.placeShip("carrier", "horizontal", 0); //       [0, 1, 2, 3, 4]
+    this.p1.board.placeShip("battleship", "vertical", 14); //     [14, 24, 34, 44]
+    this.p1.board.placeShip("cruiser", "horizontal", 45); //      [45, 46, 47]
+    this.p1.board.placeShip("submarine", "vertical", 9); //       [9, 19, 29]
+    this.p1.board.placeShip("destroyer", "horizontal", 90); //    [90, 91, 92]
 
-    let turns = {
-      current: "playerOne",
-      possible: 200,
-      switch: () =>
-        turns.current === "playerOne"
-          ? (turns.current = "cpu")
-          : (turns.current = "playerOne"),
-    };
-
-    for (let i = 0; i <= turns.possible; i++) {
-      turns.current === "playerOne" ? playerMakeMove() : cpuMakeMove();
-      updateDOM();
-      checkWin(playerOne, cpu);
-      turns.switch();
-    }
-  }
-  return { startGame };
+    this.cpu.board.placeShip("carrier", "vertical", 0); //        [0, 10, 20, 30, 40]
+    this.cpu.board.placeShip("battleship", "vertical", 8); //     [8, 18, 28, 38]
+    this.cpu.board.placeShip("cruiser", "horizontal", 45); //     [45, 46, 47]
+    this.cpu.board.placeShip("submarine", "vertical", 9); //      [9, 19, 29]
+    this.cpu.board.placeShip("destroyer", "horizontal", 90); //   [90, 91]
+  };
 }
 
 export { game };
-// testing
