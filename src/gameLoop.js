@@ -26,7 +26,7 @@ class game {
   };
 
   update = () => {
-    this.#updateDOM();
+    this.#updateDOM(); // should call a function from render.js?
     console.log(`Game is over: ${this.#gameIsOver()}`);
     this.switchTurns();
   };

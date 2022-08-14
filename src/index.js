@@ -1,4 +1,5 @@
 import { game } from "./gameLoop.js";
+import 'render.js';
 
 const GAME = new game();
 const p1 = GAME.p1;

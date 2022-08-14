@@ -1,0 +1,86 @@
+:root {
+  --primary: #66fcf1;
+  --secondary: #45a29e;
+  --tertiary: #1f2833;
+  --background: #0b0c10;
+  --gray: #c5c6c7;
+}
+
+* {
+  box-sizing: border-box;
+  /* border: 1px solid white; */
+  margin: 0px;
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background);
+}
+
+.page-ctr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#page-title {
+  font-size: 65px;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-stretch: extra-expanded;
+  color: var(--primary);
+  margin: 0px;
+}
+
+.app-ctr {
+  margin-top: 5px;
+  width: 1380px;
+  height: 800px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 20px;
+}
+
+.hud {
+  background-color: var(--tertiary);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.hud * {
+  color: white;
+  font-size: 25px;
+}
+
+.player-hud-title {
+  margin-bottom: 5px;
+}
+
+.board {
+  background-color: var(--tertiary);
+  border: 1px solid white;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+}
+
+.board div {
+  border: 1px solid white;
+}
+
+.occupied {
+  background-color: #ffa536;
+}
+
+.hit {
+background-color: #db452a;
+}
