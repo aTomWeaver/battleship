@@ -1,7 +1,7 @@
-function generateBoard(player, parentElm) {
+function _generateBoard(player, parentElm) {
   for (let i = 0; i < 100; i++) {
-    const space = document.createElement('div');
-    space.classList.add('space');
+    const space = document.createElement("div");
+    space.classList.add("space");
     space.dataset.index = `${player}-${i}`;
     parentElm.append(space);
   }
@@ -12,6 +12,7 @@ function renderMain() {
 
   const pageTitle = document.createElement("h1");
   pageTitle.id = "page-title";
+  pageTitle.innerText = "TUSSLEBOAT";
 
   const appCtr = document.createElement("div");
   appCtr.classList.add("app-ctr");
@@ -22,7 +23,7 @@ function renderMain() {
 
   const cpuBoard = document.createElement("div");
   cpuBoard.classList.add("board");
-  generateBoard('cpu', cpuBoard);
+  _generateBoard("cpu", cpuBoard);
 
   const cpuHUD = document.createElement("div");
   cpuHUD.classList.add("hud");
@@ -48,10 +49,12 @@ function renderMain() {
 
   const p1Board = document.createElement("div");
   p1Board.classList.add("board");
+  _generateBoard("p1", p1Board);
 
   const p1ActionDisplay = document.createElement("div");
   p1ActionDisplay.classList.add("p1-action-display");
 
+  // append section
   cpuHUD.append(cpuTitle, cpuSunkenShips);
   p1HUD.append(p1Title, p1SunkenShips);
   appCtr.append(
