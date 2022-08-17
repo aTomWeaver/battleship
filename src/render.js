@@ -1,3 +1,12 @@
+function generateBoard(player, parentElm) {
+  for (let i = 0; i < 100; i++) {
+    const space = document.createElement('div');
+    space.classList.add('space');
+    space.dataset.index = `${player}-${i}`;
+    parentElm.append(space);
+  }
+}
+
 function renderMain() {
   const pageCtr = document.querySelector(".page-ctr");
 
@@ -13,12 +22,14 @@ function renderMain() {
 
   const cpuBoard = document.createElement("div");
   cpuBoard.classList.add("board");
+  generateBoard('cpu', cpuBoard);
 
   const cpuHUD = document.createElement("div");
-  cpuHUD.classList.add("cpu-hud hud");
+  cpuHUD.classList.add("hud");
 
   const cpuTitle = document.createElement("h2");
   cpuTitle.classList.add("player-hud-title");
+  cpuTitle.innerText = "CPU";
 
   const cpuSunkenShips = document.createElement("div");
   cpuSunkenShips.classList.add("sunken-ships");
@@ -26,10 +37,11 @@ function renderMain() {
   // P1 ELEMENTS
 
   const p1HUD = document.createElement("div");
-  p1HUD.classList.add("p1-hud hud");
+  p1HUD.classList.add("hud");
 
   const p1Title = document.createElement("h2");
   p1Title.classList.add("player-hud-title");
+  p1Title.innerText = "Player One";
 
   const p1SunkenShips = document.createElement("div");
   p1SunkenShips.classList.add("sunken-ships");

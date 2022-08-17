@@ -1,11 +1,13 @@
 import { game } from "./gameLoop.js";
 import { renderMain } from "./render.js";
+import "./style.css"
 
 const GAME = new game();
 const p1 = GAME.p1;
 const cpu = GAME.cpu;
-
 GAME.defaultSetup();
+renderMain();
+
 
 // const attackBtn = document.getElementById('test-button');
 // attackBtn.addEventListener('click', () => {
