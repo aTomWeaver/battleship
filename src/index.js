@@ -1,13 +1,35 @@
 import { game } from "./gameLoop.js";
-import { renderMain } from "./render.js";
-import "./style.css"
+import { renderMain, renderAttack, refreshBoard } from "./render.js";
+import "./style.css";
 
 const GAME = new game();
 const p1 = GAME.p1;
 const cpu = GAME.cpu;
 GAME.defaultSetup();
+
+const update = () => {
+  // render.refresh()
+  GAME.switchTurns();
+};
+
 renderMain();
 
+function bindEvents() {
+  const cpuSpaces = document.querySelectorAll(".cpu-space");
+  cpuSpaces.forEach((space) =>
+    space.addEventListener("click", () => {
+      if (GAME.makeMove(p1, space.dataset.index, cpu)) {
+        refreshBoard(cpu);
+        GAME.makeMove(cpu, GAME.getCpuMove(), p1);
+        refreshBoard(p1);
+        console.log(`player: ${GAME.p1.board.sunkenShips}\ncpu: ${GAME.cpu.board.sunkenShips}`)
+      };
+    })
+  );
+}
+bindEvents();
+
+renderAttack("hit", 6);
 
 // const attackBtn = document.getElementById('test-button');
 // attackBtn.addEventListener('click', () => {
@@ -20,4 +42,3 @@ renderMain();
 //     GAME.update();
 //   };
 // })
-

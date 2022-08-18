@@ -12,8 +12,6 @@ class Player {
       if (!opponent.board.spaces[targetSpace].ship && !this.misses.includes(targetSpace)) {
         this.misses.push(targetSpace);
       }
-    } else {
-      console.log("invalid");
     }
   }
 }

@@ -1,8 +1,8 @@
 function _generateBoard(player, parentElm) {
   for (let i = 0; i < 100; i++) {
     const space = document.createElement("div");
-    space.classList.add("space");
-    space.dataset.index = `${player}-${i}`;
+    space.classList.add(`${player}-space`);
+    space.dataset.index = i;
     parentElm.append(space);
   }
 }
@@ -22,7 +22,7 @@ function renderMain() {
   cpuActionDisplay.classList.add("cpu-action-display");
 
   const cpuBoard = document.createElement("div");
-  cpuBoard.classList.add("board");
+  cpuBoard.classList.add("cpu-board");
   _generateBoard("cpu", cpuBoard);
 
   const cpuHUD = document.createElement("div");
@@ -48,13 +48,14 @@ function renderMain() {
   p1SunkenShips.classList.add("sunken-ships");
 
   const p1Board = document.createElement("div");
-  p1Board.classList.add("board");
+  p1Board.classList.add("p1-board");
   _generateBoard("p1", p1Board);
 
   const p1ActionDisplay = document.createElement("div");
   p1ActionDisplay.classList.add("p1-action-display");
 
-  // append section
+  // APPEND
+  
   cpuHUD.append(cpuTitle, cpuSunkenShips);
   p1HUD.append(p1Title, p1SunkenShips);
   appCtr.append(
@@ -69,4 +70,38 @@ function renderMain() {
   document.body.append(pageCtr);
 }
 
-export { renderMain };
+function renderAttack(result) {
+  const p1ActionDisplay = document.querySelector('.p1-action-display');
+  const cpuActionDisplay = document.querySelector('.cpu-action-display');
+  const fireMsg = document.createElement('h3');
+  fireMsg.classList.add('fire-msg')
+  const resultMsg = document.createElement('h3');
+  resultMsg.classList.add('fire-msg')
+
+  fireMsg.innerText = 'FIRE!';
+  resultMsg.innerText = `${result.toUpperCase()}!`
+
+  p1ActionDisplay.appendChild(fireMsg);
+
+  setTimeout(() => {
+    cpuActionDisplay.appendChild(resultMsg);
+  },500)
+  setTimeout(() => {
+    p1ActionDisplay.removeChild(fireMsg);
+    cpuActionDisplay.removeChild(resultMsg)
+  },1000)
+}
+
+function refreshBoard(player) {
+  const playerSpaces = document.querySelectorAll(`.${player.name}-space`);
+  for (let i = 0; i < player.board.spaces.length; i++) {
+    const space = playerSpaces[i];
+    if (player.board.spaces[i].isHit && player.board.spaces[i].ship) {
+      space.classList.add('hit');
+    } else if (player.board.spaces[i].isHit) {
+      space.classList.add('miss');
+    }
+  }
+}
+
+export { renderMain, refreshBoard,  renderAttack };

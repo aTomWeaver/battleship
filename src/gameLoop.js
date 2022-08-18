@@ -16,19 +16,12 @@ class game {
     );
   };
 
-  #updateDOM = () => console.log("DOM updated");
 
   switchTurns = () => {
     this.currentTurn === "p1"
       ? (this.currentTurn = "cpu")
       : (this.currentTurn = "p1");
     this.possibleTurns--;
-  };
-
-  update = () => {
-    this.#updateDOM(); // should call a function from render.js?
-    console.log(`Game is over: ${this.#gameIsOver()}`);
-    this.switchTurns();
   };
 
   makeMove = (attacker, target, opponent) => {
