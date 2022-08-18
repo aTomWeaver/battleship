@@ -92,6 +92,14 @@ function renderAttack(result) {
   },1000)
 }
 
+function renderPlacedShips(player) {
+  const spaces = document.querySelectorAll('.p1-space');
+  for (let i = 0; i < player.board.spaces.length; i++) {
+    const space = spaces[i];
+    if (player.board.spaces[i].ship) space.classList.add('occupied');
+  }
+}
+
 function refreshBoard(player) {
   const playerSpaces = document.querySelectorAll(`.${player.name}-space`);
   for (let i = 0; i < player.board.spaces.length; i++) {
@@ -104,4 +112,4 @@ function refreshBoard(player) {
   }
 }
 
-export { renderMain, refreshBoard,  renderAttack };
+export { renderMain, refreshBoard,  renderAttack, renderPlacedShips };

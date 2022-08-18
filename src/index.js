@@ -1,5 +1,5 @@
 import { game } from "./gameLoop.js";
-import { renderMain, renderAttack, refreshBoard } from "./render.js";
+import { renderMain, renderAttack, refreshBoard, renderPlacedShips } from "./render.js";
 import "./style.css";
 
 const GAME = new game();
@@ -28,6 +28,7 @@ function bindEvents() {
   );
 }
 bindEvents();
+renderPlacedShips(p1);
 
 renderAttack("hit", 6);
 
