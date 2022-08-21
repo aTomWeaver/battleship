@@ -2,8 +2,6 @@ import { Player } from "./player.js";
 
 class game {
   constructor() {
-    this.currentTurn = "p1";
-    this.possibleTurns = 100;
     this.p1 = new Player("p1");
     this.cpu = new Player("cpu");
   }
@@ -11,17 +9,8 @@ class game {
   #gameIsOver = () => {
     return (
       this.p1.board.allSunken() ||
-      this.cpu.board.allSunken() ||
-      this.possibleTurns < 1
+      this.cpu.board.allSunken()
     );
-  };
-
-
-  switchTurns = () => {
-    this.currentTurn === "p1"
-      ? (this.currentTurn = "cpu")
-      : (this.currentTurn = "p1");
-    this.possibleTurns--;
   };
 
   makeMove = (attacker, target, opponent) => {
