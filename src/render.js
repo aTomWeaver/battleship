@@ -55,7 +55,7 @@ function renderMain() {
   p1ActionDisplay.classList.add("p1-action-display");
 
   // APPEND
-  
+
   cpuHUD.append(cpuTitle, cpuSunkenShips);
   p1HUD.append(p1Title, p1SunkenShips);
   appCtr.append(
@@ -71,32 +71,32 @@ function renderMain() {
 }
 
 function renderAttack(result) {
-  const p1ActionDisplay = document.querySelector('.p1-action-display');
-  const cpuActionDisplay = document.querySelector('.cpu-action-display');
-  const fireMsg = document.createElement('h3');
-  fireMsg.classList.add('fire-msg')
-  const resultMsg = document.createElement('h3');
-  resultMsg.classList.add('fire-msg')
+  const p1ActionDisplay = document.querySelector(".p1-action-display");
+  const cpuActionDisplay = document.querySelector(".cpu-action-display");
+  const fireMsg = document.createElement("h3");
+  fireMsg.classList.add("fire-msg");
+  const resultMsg = document.createElement("h3");
+  resultMsg.classList.add("fire-msg");
 
-  fireMsg.innerText = 'FIRE!';
-  resultMsg.innerText = `${result.toUpperCase()}!`
+  fireMsg.innerText = "FIRE!";
+  resultMsg.innerText = `${result.toUpperCase()}!`;
 
   p1ActionDisplay.appendChild(fireMsg);
 
   setTimeout(() => {
     cpuActionDisplay.appendChild(resultMsg);
-  },500)
+  }, 500);
   setTimeout(() => {
     p1ActionDisplay.removeChild(fireMsg);
-    cpuActionDisplay.removeChild(resultMsg)
-  },1000)
+    cpuActionDisplay.removeChild(resultMsg);
+  }, 1000);
 }
 
 function renderPlacedShips(player) {
-  const spaces = document.querySelectorAll('.p1-space');
+  const spaces = document.querySelectorAll(".p1-space");
   for (let i = 0; i < player.board.spaces.length; i++) {
     const space = spaces[i];
-    if (player.board.spaces[i].ship) space.classList.add('occupied');
+    if (player.board.spaces[i].ship) space.classList.add("occupied");
   }
 }
 
@@ -105,11 +105,11 @@ function refreshBoard(player) {
   for (let i = 0; i < player.board.spaces.length; i++) {
     const space = playerSpaces[i];
     if (player.board.spaces[i].isHit && player.board.spaces[i].ship) {
-      space.classList.add('hit');
+      space.classList.add("hit");
     } else if (player.board.spaces[i].isHit) {
-      space.classList.add('miss');
+      space.classList.add("miss");
     }
   }
 }
 
-export { renderMain, refreshBoard,  renderAttack, renderPlacedShips };
+export { renderMain, refreshBoard, renderAttack, renderPlacedShips };

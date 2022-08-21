@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Distressed&display=swap');
+
 :root {
   --primary: #66fcf1;
   --secondary: #45a29e;
@@ -36,8 +38,8 @@ body {
 
 #page-title {
   font-size: 65px;
+  /* font-family: 'Rubik Distressed', cursive; */
   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
-  font-stretch: extra-expanded;
   color: var(--primary);
   margin: 0px;
 }

@@ -9,7 +9,10 @@ class Player {
   attack(opponent, targetSpace) {
     if (targetSpace < 100) {
       opponent.board.receiveHit(targetSpace);
-      if (!opponent.board.spaces[targetSpace].ship && !this.misses.includes(targetSpace)) {
+      if (
+        !opponent.board.spaces[targetSpace].ship &&
+        !this.misses.includes(targetSpace)
+      ) {
         this.misses.push(targetSpace);
       }
     }
