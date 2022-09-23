@@ -76,6 +76,7 @@ body {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(10, 1fr);
+  pointer-events: all;
 }
 
 .cpu-board div, .p1-board div {
@@ -94,12 +95,21 @@ body {
   background-color: var(--miss);
 }
 
-.p1-action-display {
+.p1-action-display, .cpu-action-display {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-style: italic;
+  font-style: bold;
+  font-size: 60px;
+  color: white;
+  opacity: 0;
+  transition: opacity 2s;
+}
+
+.action-display-vis {
+  opacity: 1;
+  transition: none;
 }
 
 .fire-msg {

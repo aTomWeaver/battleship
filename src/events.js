@@ -1,18 +1,27 @@
-import { refreshBoard } from "./render";
+import { refreshBoard, updateActionDisplay } from "./render";
 
 function bindEvents(game) { // rename to something more specific
   const cpuSpaces = document.querySelectorAll(".cpu-space");
+  const p1 = game.p1;
+  const cpu = game.cpu;
+
   cpuSpaces.forEach((space) =>
     space.addEventListener("click", () => {
-      if (game.makeMove(game.p1, space.dataset.index, game.cpu)) {
-        // skips rest if player clicks invalid space
-        refreshBoard(game.cpu);
-        game.makeMove(game.cpu, game.getCpuMove(), game.p1);
-        refreshBoard(game.p1);
-        console.log(
-          `player: ${game.p1.board.sunkenShips}\ncpu: ${game.cpu.board.sunkenShips}`
-        );
+
+      // player turn then cpu turn
+      if (game.makeMove(p1, space.dataset.index, cpu)) {
+        // returns if player clicks invalid space
+        refreshBoard(cpu);
+        updateActionDisplay(p1);
+        setTimeout(() => {
+          game.makeMove(cpu, game.getCpuMove(), p1);
+          refreshBoard(p1);
+          updateActionDisplay(cpu);
+        }, 100);
+
       }
+
+
     })
   );
 }

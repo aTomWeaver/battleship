@@ -15,14 +15,14 @@ class game {
 
   makeMove = (attacker, target, opponent) => {
     if (
-      !opponent.board.totalHits.includes(target) &&
+      !opponent.board.ownAttackedSpaces.includes(target) &&
       target >= 0 &&
       target < 100
     ) {
       attacker.attack(opponent, target);
-      return true; 
+      return true; // reports that attack was successful
     } else {
-      console.log(`player: ${attacker.board.totalHits}\ncpu: ${opponent.board.totalHits}`)
+      console.log(`player: ${attacker.board.ownAttackedSpaces}\ncpu: ${opponent.board.ownAttackedSpaces}`)
       return false;
     }
   };
@@ -31,7 +31,7 @@ class game {
 
   getCpuMove = () => {
     let choice = this.#getRandSpace();
-    while (this.p1.board.totalHits.includes(choice)) {
+    while (this.p1.board.ownAttackedSpaces.includes(choice)) {
       choice = this.#getRandSpace();
     }
     return choice;

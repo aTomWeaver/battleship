@@ -18,8 +18,8 @@ function renderMain() {
   appCtr.classList.add("app-ctr");
 
   // CPU ELEMENTS
-  const cpuActionDisplay = document.createElement("div");
-  cpuActionDisplay.classList.add("cpu-action-display");
+  const p1ActionDisplay = document.createElement("div");
+  p1ActionDisplay.classList.add("p1-action-display");
 
   const cpuBoard = document.createElement("div");
   cpuBoard.classList.add("cpu-board");
@@ -51,45 +51,33 @@ function renderMain() {
   p1Board.classList.add("p1-board");
   _generateBoard("p1", p1Board);
 
-  const p1ActionDisplay = document.createElement("div");
-  p1ActionDisplay.classList.add("p1-action-display");
+  const cpuActionDisplay = document.createElement("div");
+  cpuActionDisplay.classList.add("cpu-action-display");
 
   // APPEND
 
   cpuHUD.append(cpuTitle, cpuSunkenShips);
   p1HUD.append(p1Title, p1SunkenShips);
   appCtr.append(
-    cpuActionDisplay,
+    p1ActionDisplay,
     cpuBoard,
     cpuHUD,
     p1HUD,
     p1Board,
-    p1ActionDisplay
+    cpuActionDisplay
   );
   pageCtr.append(pageTitle, appCtr);
   document.body.append(pageCtr);
 }
 
-function renderAttack(result) {
-  const p1ActionDisplay = document.querySelector(".p1-action-display");
-  const cpuActionDisplay = document.querySelector(".cpu-action-display");
-  const fireMsg = document.createElement("h3");
-  fireMsg.classList.add("fire-msg");
-  const resultMsg = document.createElement("h3");
-  resultMsg.classList.add("fire-msg");
-
-  fireMsg.innerText = "FIRE!";
-  resultMsg.innerText = `${result.toUpperCase()}!`;
-
-  p1ActionDisplay.appendChild(fireMsg);
-
-  setTimeout(() => {
-    cpuActionDisplay.appendChild(resultMsg);
-  }, 500);
-  setTimeout(() => {
-    p1ActionDisplay.removeChild(fireMsg);
-    cpuActionDisplay.removeChild(resultMsg);
-  }, 1000);
+function updateActionDisplay(player) {
+  const actionDisplay = document.querySelector(`.${player.name}-action-display`);
+  const result = player.lastAttackResult;
+  actionDisplay.style.color = 'white';
+  if (result === 'HIT') actionDisplay.style.color = 'red';
+  actionDisplay.innerText = `${result}!`
+  actionDisplay.classList.add('action-display-vis');
+  setTimeout(() => actionDisplay.classList.remove('action-display-vis'), 100);
 }
 
 function renderPlacedShips(player) {
@@ -112,4 +100,4 @@ function refreshBoard(player) {
   }
 }
 
-export { renderMain, refreshBoard, renderAttack, renderPlacedShips };
+export { renderMain, refreshBoard, renderPlacedShips, updateActionDisplay };

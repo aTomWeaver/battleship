@@ -5,6 +5,7 @@ class Player {
     this.name = name;
     this.board = gameboardFactory();
     this.misses = [];
+    this.lastAttackResult;
   }
   attack(opponent, targetSpace) {
     if (targetSpace < 100) {
@@ -14,6 +15,9 @@ class Player {
         !this.misses.includes(targetSpace)
       ) {
         this.misses.push(targetSpace);
+        this.lastAttackResult = 'MISS';
+      } else {
+        this.lastAttackResult = 'HIT';
       }
     }
   }

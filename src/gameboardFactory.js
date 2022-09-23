@@ -9,7 +9,7 @@ function gameboardFactory() {
 
   let spaces = _generateBlankBoard();
 
-  let totalHits = [];
+  let ownAttackedSpaces = [];
 
   let ships = {};
 
@@ -76,21 +76,20 @@ function gameboardFactory() {
     if (!target.isHit && target.ship) {
       target.isHit = true;
       ships[target.ship].hit();
-      totalHits.push(space);
       if (ships[target.ship].isSunk()) sunkenShips.push(target.ship);
       if (allSunken()) console.log("All ships have sunk!");
     } else if (!target.isHit) {
       target.isHit = true;
-      totalHits.push(space);
     } else {
       return;
     }
+    ownAttackedSpaces.push(space);
   };
 
   return {
     spaces,
     ships,
-    totalHits,
+    ownAttackedSpaces,
     sunkenShips,
     allSunken,
     receiveHit,
