@@ -8,11 +8,8 @@ function gameboardFactory() {
   };
 
   let spaces = _generateBlankBoard();
-
   let ownAttackedSpaces = [];
-
   let ships = {};
-
   let sunkenShips = [];
 
   const allSunken = () => {
@@ -81,7 +78,6 @@ function gameboardFactory() {
     } else if (!target.isHit) {
       target.isHit = true;
     } else {
-      return;
     }
     ownAttackedSpaces.push(space);
   };

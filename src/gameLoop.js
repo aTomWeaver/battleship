@@ -15,11 +15,13 @@ class game {
 
   makeMove = (attacker, target, opponent) => {
     if (
-      !opponent.board.ownAttackedSpaces.includes(target) &&
+      !opponent.board.ownAttackedSpaces.includes(target) && // if space has not been attacked yet
       target >= 0 &&
       target < 100
     ) {
       attacker.attack(opponent, target);
+      if (!attacker.attempts.includes(target)) attacker.attempts.push(target);
+      console.log(attacker.attempts)
       return true; // reports that attack was successful
     } else {
       console.log(`player: ${attacker.board.ownAttackedSpaces}\ncpu: ${opponent.board.ownAttackedSpaces}`)
