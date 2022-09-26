@@ -1,4 +1,5 @@
 import { refreshBoard, updateActionDisplay } from "./render";
+import getCpuMove from "./cpuAI";
 
 function bindEvents(game) { // rename to something more specific
   const cpuSpaces = document.querySelectorAll(".cpu-space");
@@ -14,7 +15,7 @@ function bindEvents(game) { // rename to something more specific
         refreshBoard(cpu);
         updateActionDisplay(p1);
         setTimeout(() => {
-          game.makeMove(cpu, game.getCpuMove(), p1);
+          game.makeMove(cpu, getCpuMove(game.cpu), p1);
           refreshBoard(p1);
           updateActionDisplay(cpu);
         }, 100);

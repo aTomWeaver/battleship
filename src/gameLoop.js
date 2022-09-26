@@ -20,8 +20,14 @@ class game {
       target < 100
     ) {
       attacker.attack(opponent, target);
-      if (!attacker.attempts.includes(target)) attacker.attempts.push(target);
+  
+      if (!attacker.attempts.target) {
+        attacker.attempts[target] = attacker.lastAttackResult;
+        attacker.lastTarget = target;
+      }
       console.log(attacker.attempts)
+
+
       return true; // reports that attack was successful
     } else {
       console.log(`player: ${attacker.board.ownAttackedSpaces}\ncpu: ${opponent.board.ownAttackedSpaces}`)
@@ -29,15 +35,15 @@ class game {
     }
   };
 
-  #getRandSpace = () => Math.floor(Math.random() * 100);
+  // #getRandSpace = () => Math.floor(Math.random() * 100);
 
-  getCpuMove = () => {
-    let choice = this.#getRandSpace();
-    while (this.p1.board.ownAttackedSpaces.includes(choice)) {
-      choice = this.#getRandSpace();
-    }
-    return choice;
-  };
+  // getCpuMove = () => {
+  //   let choice = this.#getRandSpace();
+  //   while (this.p1.board.ownAttackedSpaces.includes(choice)) {
+  //     choice = this.#getRandSpace();
+  //   }
+  //   return choice;
+  // };
 
   defaultSetup = () => {
     this.p1.board.placeShip("carrier", "horizontal", 0); //       [0, 1, 2, 3, 4]

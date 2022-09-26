@@ -6,7 +6,8 @@ class Player {
     this.board = gameboardFactory();
     this.misses = [];
     this.lastAttackResult;
-    this.attempts = [];
+    this.lastTarget;
+    this.attempts = {};
   }
   attack(opponent, targetSpace) {
     if (targetSpace < 100) {
