@@ -7,10 +7,7 @@ class game {
   }
   // helpers
   #gameIsOver = () => {
-    return (
-      this.p1.board.allSunken() ||
-      this.cpu.board.allSunken()
-    );
+    return this.p1.board.allSunken() || this.cpu.board.allSunken();
   };
 
   makeMove = (attacker, target, opponent) => {
@@ -20,11 +17,11 @@ class game {
       target < 100
     ) {
       attacker.attack(opponent, target);
-      if (!attacker.attempts.includes(target)) attacker.attempts.push(target);
-      console.log(attacker.attempts)
+      attacker.attempts.push({ space: target, result: attacker.lastAttackResult }); // 
+
       return true; // reports that attack was successful
     } else {
-      console.log(`player: ${attacker.board.ownAttackedSpaces}\ncpu: ${opponent.board.ownAttackedSpaces}`)
+      console.log(`Invalid choice!`);
       return false;
     }
   };
