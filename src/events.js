@@ -9,15 +9,15 @@ function bindEvents(game) { // rename to something more specific
     space.addEventListener("click", () => {
 
       // player turn then cpu turn
-      if (game.makeMove(p1, space.dataset.index, cpu)) {
+      if (game.makeMove(p1, parseInt(space.dataset.index), cpu)) {
         // returns if player clicks invalid space
         refreshBoard(cpu);
         updateActionDisplay(p1);
-        setTimeout(() => {
-          game.makeMove(cpu, game.getCpuMove(), p1);
-          refreshBoard(p1);
-          updateActionDisplay(cpu);
-        }, 100);
+
+        // CPU move
+        game.makeMove(cpu, game.getCpuMove(), p1);
+        refreshBoard(p1);
+        updateActionDisplay(cpu);
 
       }
 
