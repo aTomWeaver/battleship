@@ -19,6 +19,11 @@ function bindEvents(game) { // rename to something more specific
         refreshBoard(p1);
         updateActionDisplay(cpu);
 
+        // logs
+        console.log('\nP1:')
+        console.table(p1.attempts)
+        console.log('\nCPU:')
+        console.table(cpu.attempts)
       }
 
 
