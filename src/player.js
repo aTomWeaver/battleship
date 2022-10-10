@@ -4,23 +4,21 @@ class Player {
   constructor(name) {
     this.name = name;
     this.board = gameboardFactory();
-    this.misses = [];
     this.lastAttackResult;
     this.lastTarget;
     this.attempts = {};
   }
   attack(opponent, targetSpace) {
-    if (targetSpace < 100) {
-      opponent.board.receiveHit(targetSpace);
-      if (
-        !opponent.board.spaces[targetSpace].ship &&
-        !this.misses.includes(targetSpace)
-      ) {
-        this.misses.push(targetSpace);
-        this.lastAttackResult = 'MISS';
-      } else {
-        this.lastAttackResult = 'HIT';
-      }
+    opponent.board.receiveHit(targetSpace);
+    if (
+      !opponent.board.spaces[targetSpace].ship && // opponent doesn't have a ship on targetSpace &&
+      !this.attempts
+        .filter((att) => att.result === "MISS")
+        .find((elm) => elm.space == targetSpace) // attacker has not already missed targetSpace
+    ) {
+      this.lastAttackResult = "MISS";
+    } else {
+      this.lastAttackResult = "HIT";
     }
   }
 }
