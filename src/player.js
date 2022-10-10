@@ -5,8 +5,7 @@ class Player {
     this.name = name;
     this.board = gameboardFactory();
     this.lastAttackResult;
-    this.lastTarget;
-    this.attempts = {};
+    this.attempts = [];
   }
   attack(opponent, targetSpace) {
     opponent.board.receiveHit(targetSpace);

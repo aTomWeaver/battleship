@@ -26,15 +26,15 @@ class game {
     }
   };
 
-  // #getRandSpace = () => Math.floor(Math.random() * 100);
+  #getRandSpace = () => Math.floor(Math.random() * 100);
 
-  // getCpuMove = () => {
-  //   let choice = this.#getRandSpace();
-  //   while (this.p1.board.ownAttackedSpaces.includes(choice)) {
-  //     choice = this.#getRandSpace();
-  //   }
-  //   return choice;
-  // };
+  getCpuMove = () => {
+    let choice = this.#getRandSpace();
+    while (this.p1.board.ownAttackedSpaces.includes(choice)) {
+      choice = this.#getRandSpace();
+    }
+    return choice;
+  };
 
   defaultSetup = () => {
     this.p1.board.placeShip("carrier", "horizontal", 0); //       [0, 1, 2, 3, 4]
