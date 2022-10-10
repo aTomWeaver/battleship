@@ -1,6 +1,8 @@
 import { refreshBoard, updateActionDisplay } from "./render";
 
-function bindEvents(game) { // rename to something more specific
+
+
+function bindGameEvents(game) { // rename to something more specific
   const cpuSpaces = document.querySelectorAll(".cpu-space");
   const p1 = game.p1;
   const cpu = game.cpu;
@@ -31,4 +33,4 @@ function bindEvents(game) { // rename to something more specific
   );
 }
 
-export { bindEvents };
+export { bindGameEvents };
