@@ -1,4 +1,21 @@
+class targetShip {
+  constructor(firstHit) {
+    this.orientation = 'unknown';
+    this.spaces = [firstHit];
+  }
+  set orientation(secondHit) {
+    if (secondHit - this.spaces[0] == 1 || secondHit - this.spaces[0] == -1) {
+      this.orientation = 'horizontal';
+    } else {
+      this.orientation = 'vertical'
+    }
+  }
+}
+
+
 const getRandSpace = () => Math.floor(Math.random() * 100);
+
+
 
 function _getTrajectory(attempts) {
 
