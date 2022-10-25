@@ -1,40 +1,52 @@
+const coinflip = () => Math.floor(Math.random() * 2);
+
 class targetShip {
-  constructor(firstHit) {
-    this.orientation = 'unknown';
-    this.spaces = [firstHit];
+  constructor(firstHit, secondHit) {
+    this.spaces = [firstHit, secondHit];
+    this.orientation =
+      Math.abs(this.spaces[1] - this.spaces[0]) == 1
+        ? "horizontal"
+        : "vertical";
   }
-  set orientation(secondHit) {
-    if (secondHit - this.spaces[0] == 1 || secondHit - this.spaces[0] == -1) {
-      this.orientation = 'horizontal';
+  getTarget() {
+    let lowestValHit = Math.min(...this.spaces); // 4
+    let highestValHit = Math.max(...this.spaces); // 14
+    console.log(lowestValHit, highestValHit);
+    if (this.orientation == "vertical") {
+      if (coinflip()) {
+        if (this.#isValidTarget(highestValHit + 10)) return highestValHit + 10;
+      } else {
+        if (this.#isValidTarget(lowestValHit - 10)) return lowestValHit - 10;
+      }
     } else {
-      this.orientation = 'vertical'
+      if (coinflip()) {
+        if (this.#isValidTarget(highestValHit + 1)) return highestValHit + 1;
+      } else {
+        if (this.#isValidTarget(lowestValHit - 1)) return lowestValHit - 1;
+      }
+    }
+  }
+  #isValidTarget(target) { // does not yet check if target has already been attacked
+    if (this.orientation == "horizontal") {
+      if (Math.floor(this.spaces[0] * 0.1) == Math.floor(target * 0.1)) {
+        return true;
+      } else {
+        return false;
+      }
+    } else if (this.orientation == "vertical") {
+      if (target > 0 && target < 100) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return "invalid";
     }
   }
 }
 
-
-const getRandSpace = () => Math.floor(Math.random() * 100);
-
-
-
-function _getTrajectory(attempts) {
-
-}
-
-function cpuAttack(cpu) {
-  let choice;
-  if (cpu.lastAttackResult === 'HIT') {
-    let randInt = Math.floor(Math.random() * 8);
-
-    if (randInt < 2) {
-      choice = cpu.attempts[cpu.attempts.length - 1] + 10; // attack down one space  
-    } else if (randInt < 4) {
-      choice = cpu.attempts[cpu.attempts.length - 1] - 10 // up one space
-    } else if (randInt < 6) {
-      choice = cpu.attempts[cpu.attempts.length - 1] + 1 // right one space
-    } else if (randInt < 8) {
-      choice = cpu.attempts[cpu.attempts.length - 1] - 1 // left one space
-    }
-  }
-  return choice;
-}
+let newShipHere = new targetShip(14, 15);
+newShipHere.spaces.push(16);
+console.log(newShipHere.orientation);
+console.log(newShipHere.spaces);
+console.log(newShipHere.getTarget());
