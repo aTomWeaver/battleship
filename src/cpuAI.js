@@ -26,7 +26,13 @@ class targetShip {
       }
     }
   }
-  #isValidTarget(target) { // does not yet check if target has already been attacked
+  #isValidTarget(target) { 
+    /* 
+    does not yet check if target has already been attacked
+    querySelector(space of target)
+    check if space of target isHit
+    if '!isHit' && ...
+    */
     if (this.orientation == "horizontal") {
       if (Math.floor(this.spaces[0] * 0.1) == Math.floor(target * 0.1)) {
         return true;
