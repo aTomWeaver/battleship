@@ -1,3 +1,6 @@
 Sun Sep 25 2022 17:48:16
 	simplify the way that moves are logged. i.e. checking players previous attack attempts vs checking opponents "ownAttackedSpaces"
 
+Thu Oct 27 2022 18:39:35
+	update UI to adjust with mediaqueries
+

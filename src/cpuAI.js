@@ -31,12 +31,11 @@ class targetShip {
     }
   }
   #isValidTarget(target) { 
-    /* 
-    I don't like the below solution but it's a workable hack
-    */
+    // I don't like the below solution but it's workable
     const hitArray = [...document.querySelectorAll('.hit')].map(elm => parseInt(elm.dataset.index));
     const missArray = [...document.querySelectorAll('.miss')].map(elm => parseInt(elm.dataset.index));
     const totalAttemptsArray = [...missArray,...hitArray];
+
     if (!totalAttemptsArray.includes(target)) {
       if (this.orientation == "horizontal") {
         if (Math.floor(this.spaces[0] * 0.1) == Math.floor(target * 0.1)) {
