@@ -9,48 +9,50 @@ class targetShip {
         : "vertical";
   }
   getTarget() {
-    let lowestValHit = Math.min(...this.spaces); // 4
-    let highestValHit = Math.max(...this.spaces); // 14
+    let lowestValHit = Math.min(...this.spaces);
+    let highestValHit = Math.max(...this.spaces);
     console.log(lowestValHit, highestValHit);
     if (this.orientation == "vertical") {
-      if (coinflip()) {
-        if (this.#isValidTarget(highestValHit + 10)) return highestValHit + 10;
+      if (this.#isValidTarget(highestValHit + 10)) {
+        return highestValHit + 10;
+      } else if (this.#isValidTarget(lowestValHit - 10)) {
+        return lowestValHit - 10;
       } else {
-        if (this.#isValidTarget(lowestValHit - 10)) return lowestValHit - 10;
+        console.log('no valid move');
       }
     } else {
-      if (coinflip()) {
-        if (this.#isValidTarget(highestValHit + 1)) return highestValHit + 1;
+      if (this.#isValidTarget(highestValHit + 1)) {
+        return highestValHit + 1;
+      } else if (this.#isValidTarget(lowestValHit - 1)) {
+        return lowestValHit - 1;
       } else {
-        if (this.#isValidTarget(lowestValHit - 1)) return lowestValHit - 1;
+        console.log('no valid move');
       }
     }
   }
   #isValidTarget(target) { 
     /* 
-    does not yet check if target has already been attacked
-    querySelector(space of target)
-    check if space of target isHit
-    if '!isHit' && ...
-
-
-    might have been easier to just model each player's attacked spaces in their opponents object.. idk
+    I don't like the below solution but it's a workable hack
     */
-   const targetDiv = document.querySelector(`[data-index="${target}"]`);
-    if (this.orientation == "horizontal") {
-      if (Math.floor(this.spaces[0] * 0.1) == Math.floor(target * 0.1)) {
-        return true;
-      } else {
-        return false;
-      }
-    } else if (this.orientation == "vertical") {
-      if (target > 0 && target < 100) {
-        return true;
-      } else {
-        return false;
+    const hitArray = [...document.querySelectorAll('.hit')].map(elm => parseInt(elm.dataset.index));
+    const missArray = [...document.querySelectorAll('.miss')].map(elm => parseInt(elm.dataset.index));
+    const totalAttemptsArray = [...missArray,...hitArray];
+    if (!totalAttemptsArray.includes(target)) {
+      if (this.orientation == "horizontal") {
+        if (Math.floor(this.spaces[0] * 0.1) == Math.floor(target * 0.1)) {
+          return true;
+        } else {
+          return false;
+        }
+      } else if (this.orientation == "vertical") {
+        if (target > 0 && target < 100) {
+          return true;
+        } else {
+          return false;
+        }
       }
     } else {
-      return "invalid";
+      return false;
     }
   }
 }
@@ -60,3 +62,5 @@ newShipHere.spaces.push(16);
 console.log(newShipHere.orientation);
 console.log(newShipHere.spaces);
 console.log(newShipHere.getTarget());
+
+// export {targetShip}
