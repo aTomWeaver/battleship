@@ -32,7 +32,11 @@ class targetShip {
     querySelector(space of target)
     check if space of target isHit
     if '!isHit' && ...
+
+
+    might have been easier to just model each player's attacked spaces in their opponents object.. idk
     */
+   const targetDiv = document.querySelector(`[data-index="${target}"]`);
     if (this.orientation == "horizontal") {
       if (Math.floor(this.spaces[0] * 0.1) == Math.floor(target * 0.1)) {
         return true;
