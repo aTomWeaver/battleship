@@ -1,0 +1,3 @@
+Sun Sep 25 2022 17:48:16
+	simplify the way that moves are logged. i.e. checking players previous attack attempts vs checking opponents "ownAttackedSpaces"
+

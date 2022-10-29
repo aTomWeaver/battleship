@@ -4,3 +4,9 @@ Sun Sep 25 2022 17:48:16
 Thu Oct 27 2022 18:39:35
 	update UI to adjust with mediaqueries
 
+Sat Oct 29 2022 14:55:07
+	consider converting gameboard factory into a class
+
+Sat Oct 29 2022 14:56:36
+	map out all modules, objs, and props of the project and consider how project might be refactored
+

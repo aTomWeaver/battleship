@@ -1,4 +1,4 @@
-import { game } from "./gameLoop.js";
+import { game } from "./game.js";
 import {
   renderMain,
   renderPlacedShips,

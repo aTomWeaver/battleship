@@ -4,6 +4,11 @@ class game {
   constructor() {
     this.p1 = new Player("p1");
     this.cpu = new Player("cpu");
+    this.cpu.currentTargetShip = 'none';
+    /*
+    // when cpu gets two successful hits in a row, ^ this value will become a new targetShip
+    // from the targetShip class in cpuAI.js
+    */
   }
   // helpers
   #gameIsOver = () => {
@@ -29,10 +34,13 @@ class game {
   #getRandSpace = () => Math.floor(Math.random() * 100);
 
   getCpuMove = () => {
-    let choice = this.#getRandSpace();
-    while (this.p1.board.ownAttackedSpaces.includes(choice)) {
+    let choice;
+    if (this.cpu.currentTargetShip == 'none') {
       choice = this.#getRandSpace();
-    }
+      while (this.p1.board.ownAttackedSpaces.includes(choice)) {
+        choice = this.#getRandSpace();
+      }
+    } 
     return choice;
   };
 

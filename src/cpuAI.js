@@ -1,32 +1,43 @@
 const coinflip = () => Math.floor(Math.random() * 2);
 
 class targetShip {
-  constructor(firstHit, secondHit) {
-    this.spaces = [firstHit, secondHit];
-    this.orientation =
-      Math.abs(this.spaces[1] - this.spaces[0]) == 1
-        ? "horizontal"
-        : "vertical";
+  constructor(...hits) {
+    this.spaces = [...hits];
+  }
+  get orientation() {
+    console.log(this.spaces.length)
+    console.log(this.spaces)
+    if (this.spaces.length < 2) {
+      return "none";
+    } else if (Math.abs(this.spaces[1] - this.spaces[0]) == 1) {
+      return "horizontal";
+    } else {
+      return "vertical";
+    }
   }
   getTarget() {
-    let lowestValHit = Math.min(...this.spaces);
-    let highestValHit = Math.max(...this.spaces);
-    console.log(lowestValHit, highestValHit);
-    if (this.orientation == "vertical") {
-      if (this.#isValidTarget(highestValHit + 10)) {
-        return highestValHit + 10;
-      } else if (this.#isValidTarget(lowestValHit - 10)) {
-        return lowestValHit - 10;
-      } else {
-        console.log('no valid move');
-      }
+    if (this.orientation == 'none') {
+
     } else {
-      if (this.#isValidTarget(highestValHit + 1)) {
-        return highestValHit + 1;
-      } else if (this.#isValidTarget(lowestValHit - 1)) {
-        return lowestValHit - 1;
+      let lowestValHit = Math.min(...this.spaces);
+      let highestValHit = Math.max(...this.spaces);
+      console.log(lowestValHit, highestValHit);
+      if (this.orientation == "vertical") {
+        if (this.#isValidTarget(highestValHit + 10)) {
+          return highestValHit + 10;
+        } else if (this.#isValidTarget(lowestValHit - 10)) {
+          return lowestValHit - 10;
+        } else {
+          console.log('no valid move');
+        }
       } else {
-        console.log('no valid move');
+        if (this.#isValidTarget(highestValHit + 1)) {
+          return highestValHit + 1;
+        } else if (this.#isValidTarget(lowestValHit - 1)) {
+          return lowestValHit - 1;
+        } else {
+          console.log('no valid move');
+        }
       }
     }
   }
@@ -49,6 +60,8 @@ class targetShip {
         } else {
           return false;
         }
+      } else {
+        
       }
     } else {
       return false;
@@ -56,10 +69,5 @@ class targetShip {
   }
 }
 
-let newShipHere = new targetShip(14, 15);
-newShipHere.spaces.push(16);
-console.log(newShipHere.orientation);
-console.log(newShipHere.spaces);
-console.log(newShipHere.getTarget());
-
-// export {targetShip}
+let ship = new targetShip(1,2,3);
+console.log(ship.orientation)
