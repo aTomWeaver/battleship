@@ -17,7 +17,7 @@ class targetShip {
   }
   getTarget() {
     if (this.orientation == 'none') {
-
+      this.#attackPerimeter(this.spaces[0]);
     } else {
       let lowestValHit = Math.min(...this.spaces);
       let highestValHit = Math.max(...this.spaces);
@@ -61,13 +61,20 @@ class targetShip {
           return false;
         }
       } else {
-        
+
       }
     } else {
       return false;
     }
   }
+  #attackPerimeter(center) {
+    const left = center - 1;
+    const up = center - 10;
+    const right = center + 1;
+    const down = center + 10;
+    const directions = [left, up, right, down];
+    return directions.find(dir => this.#isValidTarget(dir))
+  }
 }
 
-let ship = new targetShip(1,2,3);
-console.log(ship.orientation)
+export {targetShip}
