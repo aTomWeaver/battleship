@@ -69,7 +69,7 @@ class targetShip {
     const right = center + 1;
     const down = center + 10;
     const directions = [left, up, right, down];
-    
+
     return directions.find(dir => this.#isValidTarget(dir))
   }
 }

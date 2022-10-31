@@ -40,7 +40,9 @@ class game {
       while (this.p1.board.ownAttackedSpaces.includes(choice)) {
         choice = this.#getRandSpace();
       }
-    } 
+    } else {
+      
+    }
     return choice;
   };
 
