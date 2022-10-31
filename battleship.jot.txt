@@ -10,3 +10,6 @@ Sat Oct 29 2022 14:55:07
 Sat Oct 29 2022 14:56:36
 	map out all modules, objs, and props of the project and consider how project might be refactored
 
+Mon Oct 31 2022 18:41:31
+	current cpuAI will get confused if two ships are next to each other and it consequently misidentifies the direction of its target
+
