@@ -1,10 +1,11 @@
+import { targetShip } from "./cpuAI.js";
 import { Player } from "./player.js";
 
 class game {
   constructor() {
     this.p1 = new Player("p1");
     this.cpu = new Player("cpu");
-    this.cpu.currentTargetShip = 'none';
+    this.cpu.currentTargetShip = "none";
     /*
     // when cpu gets two successful hits in a row, ^ this value will become a new targetShip
     // from the targetShip class in cpuAI.js
@@ -22,7 +23,10 @@ class game {
       target < 100
     ) {
       attacker.attack(opponent, target);
-      attacker.attempts.push({ space: target, result: attacker.lastAttackResult }); // 
+      attacker.attempts.push({
+        space: target,
+        result: attacker.lastAttackResult,
+      }); //
 
       return true; // reports that attack was successful
     } else {
@@ -35,13 +39,21 @@ class game {
 
   getCpuMove = () => {
     let choice;
-    if (this.cpu.currentTargetShip == 'none') {
-      choice = this.#getRandSpace();
-      while (this.p1.board.ownAttackedSpaces.includes(choice)) {
+    if (this.cpu.currentTargetShip == "none") {
+      if (this.cpu.lastAttackResult == "HIT") {
+        this.cpu.currentTargetShip = new targetShip(
+          this.cpu.attempts, // simply using 'attempts' property won't work because it's an array of objects
+          this.cpu.attempt[this.cpu.attempts.length - 1] // simply using 'attempts' property won't work because it's an array of objects
+        );
+        choice = this.cpu.currentTargetShip.getTarget()
+      } else {
         choice = this.#getRandSpace();
+        while (this.p1.board.ownAttackedSpaces.includes(choice)) {
+          choice = this.#getRandSpace();
+        }
       }
     } else {
-      
+      choice = this.cpu.currentTargetShip.getTarget()
     }
     return choice;
   };
