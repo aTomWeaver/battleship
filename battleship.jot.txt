@@ -13,3 +13,9 @@ Sat Oct 29 2022 14:56:36
 Mon Oct 31 2022 18:41:31
 	current cpuAI will get confused if two ships are next to each other and it consequently misidentifies the direction of its target
 
+Thu Nov 03 2022 19:00:26
+	AI is selecting a good move initally but is then continuously selecting the same move every turn. Ensure that cpu cannot select the same move. See why this is not being prevented
+
+Thu Nov 03 2022 19:12:51
+	cpuAI has no way of knowing if a hit was successful and subsequently adding successful hits to targetShip.spaces
+

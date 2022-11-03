@@ -6,8 +6,6 @@ class targetShip {
     this.unavailableSpaces = [...attackedSpaces]
   }
   get orientation() {
-    console.log(this.spaces.length)
-    console.log(this.spaces)
     if (this.spaces.length < 2) {
       return "none";
     } else if (Math.abs(this.spaces[1] - this.spaces[0]) == 1) {

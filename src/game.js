@@ -41,9 +41,10 @@ class game {
     let choice;
     if (this.cpu.currentTargetShip == "none") {
       if (this.cpu.lastAttackResult == "HIT") {
+        let cpuAttempts = this.cpu.attempts.map(elm => elm.space);
         this.cpu.currentTargetShip = new targetShip(
-          this.cpu.attempts, // simply using 'attempts' property won't work because it's an array of objects
-          this.cpu.attempt[this.cpu.attempts.length - 1] // simply using 'attempts' property won't work because it's an array of objects
+          cpuAttempts, // simply using 'attempts' property won't work because it's an array of objects
+          cpuAttempts[cpuAttempts.length - 1] // simply using 'attempts' property won't work because it's an array of objects
         );
         choice = this.cpu.currentTargetShip.getTarget()
       } else {
