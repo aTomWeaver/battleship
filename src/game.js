@@ -41,12 +41,12 @@ class game {
     let choice;
     if (this.cpu.currentTargetShip == "none") {
       if (this.cpu.lastAttackResult == "HIT") {
-        let cpuAttempts = this.cpu.attempts.map(elm => elm.space);
+        let cpuAttempts = this.cpu.attempts.map((elm) => elm.space);
         this.cpu.currentTargetShip = new targetShip(
           cpuAttempts, // simply using 'attempts' property won't work because it's an array of objects
           cpuAttempts[cpuAttempts.length - 1] // simply using 'attempts' property won't work because it's an array of objects
         );
-        choice = this.cpu.currentTargetShip.getTarget()
+        choice = this.cpu.currentTargetShip.getTarget();
       } else {
         choice = this.#getRandSpace();
         while (this.p1.board.ownAttackedSpaces.includes(choice)) {
@@ -54,7 +54,7 @@ class game {
         }
       }
     } else {
-      choice = this.cpu.currentTargetShip.getTarget()
+      choice = this.cpu.currentTargetShip.getTarget();
     }
     return choice;
   };
